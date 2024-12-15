@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12-Hour Clock</title>
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #282c34;
+        color: white;
+    }
+    .clock {
+        font-size: 3rem;
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        transition: background-color 0.3s ease;
+    }
+    .clock:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+    @media (max-width: 600px) {
+        .clock {
+            font-size: 2rem;
+            padding: 15px;
+        }
+    }
+    </style>
+</head>
+<body>
+    <div class="clock" id="clock"></div>
+
+    <script>
+        function updateClock() {
+            const clockElement = document.getElementById('clock');
+            const now = new Date();
+
+            let hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const period = hours >= 12 ? 'PM' : 'AM';
+
+            // Convert to 12-hour format
+            hours = hours % 12;
+            if (hours === 0) {
+                hours = 12;
+            }
+
+            // Format time as HH:MM:SS AM/PM
+            const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')} ${period}`;
+            clockElement.textContent = timeString;
+        }
+
+        // Update the clock every second
+        setInterval(updateClock, 1000);
+        updateClock(); // Initialize clock immediately
+    </script>
+</body>
+</html>
